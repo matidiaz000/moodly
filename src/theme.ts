@@ -6,6 +6,17 @@ const theme = createTheme({
   typography: {
     fontFamily: "var(--font-roboto)",
   },
+  components: {
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          "&": { background: "transparent" },
+          "&:hover": { background: "transparent" },
+          "&.Mui-focused": { background: "transparent" }
+        }
+      }
+    }
+  }
 });
 
 export default theme;
