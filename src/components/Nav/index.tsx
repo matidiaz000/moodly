@@ -23,7 +23,7 @@ export default function Nav() {
         <BottomNavigationAction label="Inicio" icon={<HomeRoundedIcon fontSize="medium" />} component={Link} href="/registros" />
         <BottomNavigationAction label="Salud" icon={<PsychologyAltRoundedIcon fontSize="medium" />} component={Link} href="#" />
         <BottomNavigationAction label="Estadisticas" icon={<LeaderboardRoundedIcon fontSize="medium" />} component={Link} href="#" />
-        <BottomNavigationAction label="Configuración" icon={<SettingsRoundedIcon fontSize="medium" />} component={Link} href="#" />
+        <BottomNavigationAction label="Terapia" icon={<SettingsRoundedIcon fontSize="medium" />} component={Link} href="/terapia" />
       </BottomNavigation>
     </Paper>
   );

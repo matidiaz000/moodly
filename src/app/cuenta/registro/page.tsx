@@ -55,6 +55,7 @@ export default function RegistroCuenta() {
           name="name"
           label="Nombre y Apellido"
           sx={{ mb: 2 }}
+          defaultValue=""
           handleInput={(value: string | undefined) => setName(value)}
         />
         <Input
@@ -63,6 +64,7 @@ export default function RegistroCuenta() {
           name="email"
           label="Correo electrónico"
           sx={{ mb: 2 }}
+          defaultValue=""
           handleInput={(value: string | undefined) => setEmail(value)}
         />
         <Input
@@ -71,6 +73,7 @@ export default function RegistroCuenta() {
           name="repeatEmail"
           label="Repite tu correo electrónico"
           sx={{ mb: 2 }}
+          defaultValue=""
           handleInput={(value: string | undefined) => setRepeatEmail(value)}
         />
         <Input
@@ -79,6 +82,7 @@ export default function RegistroCuenta() {
           name="password"
           label="Contraseña"
           sx={{ mb: 2 }}
+          defaultValue=""
           handleInput={(value: string | undefined) => setPassword(value)}
         />
         <Input
@@ -86,6 +90,7 @@ export default function RegistroCuenta() {
           type="password"
           name="repeatPassword"
           label="Repite tu contraseña"
+          defaultValue=""
           handleInput={(value: string | undefined) => setRepeatPassword(value)}
         />
       </Box>

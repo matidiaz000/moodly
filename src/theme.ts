@@ -1,5 +1,7 @@
 "use client";
 import { createTheme } from "@mui/material/styles";
+import { esES as coreEsES } from '@mui/material/locale';
+import { esES } from '@mui/x-date-pickers/locales';
 
 const theme = createTheme({
   cssVariables: true,
@@ -16,7 +18,10 @@ const theme = createTheme({
         }
       }
     }
-  }
-});
+  },
+},
+esES, // x-date-pickers translations
+coreEsES, // core translations
+);
 
 export default theme;

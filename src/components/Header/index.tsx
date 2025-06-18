@@ -16,7 +16,7 @@ export default function Header({ title }: IProps) {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, textTransform: 'uppercase' }}>
           {title}
         </Typography>
-        <MuiLink component={NextLink} underline="none" href={"/cuenta"}>
+        <MuiLink component={NextLink} underline="none" href={"/perfil"}>
           <IconButton
             size="large"
             edge="start"

@@ -3,7 +3,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Nav from "@/components/Nav";
 import Card from '@/app/registros/components/Card';
-import Header from '@/app/registros/components/Header';
+import Header from '@/components/Header';
 import Empty from './components/Empty';
 import Fab from './components/Fab';
 

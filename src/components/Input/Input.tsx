@@ -11,10 +11,11 @@ interface IProps {
   label: string,
   sx?: object,
   rows?: number,
+  defaultValue: string,
   handleInput: (event: string) => void;
 }
 
-export default function Input({ startAdorment, type, name, label, sx, rows, handleInput }: Readonly<IProps>) {
+export default function Input({ startAdorment, type, name, label, sx, rows, defaultValue, handleInput }: Readonly<IProps>) {
   const [showPassword, setShowPassword] = React.useState(false);
   
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -53,6 +54,7 @@ export default function Input({ startAdorment, type, name, label, sx, rows, hand
         sx={{ formControl: { background: 'red'} }}
         multiline={rows ? true : false}
         rows={rows}
+        value={defaultValue}
         onInput={(e: React.ChangeEvent<HTMLInputElement>) => handleInput(e.target.value)}
         slotProps={{
           input: {
