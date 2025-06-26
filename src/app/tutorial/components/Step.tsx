@@ -24,6 +24,8 @@ export default function Step({ steps, activeStep }: IProps) {
         alt={steps[activeStep].label}
         width={steps[activeStep].width}
         height={steps[activeStep].height}
+        style={{ width: "100%", height: "auto" }}
+        priority
       />
       <Box sx={{ px: 3, pb: 4, pt: 3 }}>
         <Typography

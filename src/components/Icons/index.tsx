@@ -1,5 +1,5 @@
 import ActividadCine from '@/components/Icons/actividad/cine';
-import ActividadComidas from '@/components/Icons/actividad/comidas';
+import ActividadCompras from '@/components/Icons/actividad/compras';
 import ActividadEjercicio from '@/components/Icons/actividad/ejercicio';
 import ActividadEstudio from '@/components/Icons/actividad/estudio';
 import ActividadJuegos from '@/components/Icons/actividad/juegos';
@@ -18,7 +18,7 @@ import DormirBien from '@/components/Icons/dormir/bien';
 import DormirMal from '@/components/Icons/dormir/mal';
 import DormirRegular from '@/components/Icons/dormir/regular';
 
-type IconsActividad = 'cine' | 'comidas' | 'ejercicio' | 'estudio' | 'juegos' | 'lectura' | 'restaurante' | 'trabajo' | 'tv';
+type IconsActividad = 'cine' | 'compras' | 'ejercicio' | 'estudio' | 'juegos' | 'lectura' | 'restaurante' | 'trabajo' | 'tv';
 type IconsAnimo = 'bien' | 'horrible' | 'increible' | 'mal' | 'neutral';
 type IconsDormir = 'bien' | 'mal' | 'regular';
 
@@ -30,31 +30,32 @@ interface IProps {
   selected: boolean,
   folder: TFolder,
   icon: TIcon,
+  size?: number
 }
 
-export default function Icons({ color, selected, folder, icon }: IProps): React.ReactNode | undefined {
+export default function Icons({ color, selected, folder, icon, size }: IProps): React.ReactNode | undefined {
   if (folder === 'animo') {
-    if (icon === 'bien') return <AnimoBien color={color} selected={selected} />
-    else if (icon === 'horrible') return <AnimoHorrible color={color} selected={selected} />
-    else if (icon === 'increible') return <AnimoIncreible color={color} selected={selected} />
-    else if (icon === 'mal') return <AnimoMal color={color} selected={selected} />
-    else if (icon === 'neutral') return <AnimoNeutral color={color} selected={selected} />
+    if (icon === 'bien') return <AnimoBien color={color} selected={selected} size={size} />
+    else if (icon === 'horrible') return <AnimoHorrible color={color} selected={selected} size={size} />
+    else if (icon === 'increible') return <AnimoIncreible color={color} selected={selected} size={size} />
+    else if (icon === 'mal') return <AnimoMal color={color} selected={selected} size={size} />
+    else if (icon === 'neutral') return <AnimoNeutral color={color} selected={selected} size={size} />
     else return undefined
   } else if (folder === 'dormir') {
-    if (icon === 'bien') return <DormirBien color={color} selected={selected} />
-    else if (icon === 'mal') return <DormirMal color={color} selected={selected} />
-    else if (icon === 'regular') return <DormirRegular color={color} selected={selected} />
+    if (icon === 'bien') return <DormirBien color={color} selected={selected} size={size} />
+    else if (icon === 'mal') return <DormirMal color={color} selected={selected} size={size} />
+    else if (icon === 'regular') return <DormirRegular color={color} selected={selected} size={size} />
     else return undefined
   } else if (folder === 'actividad') {
-    if (icon === 'cine') return <ActividadCine color={color} selected={selected} />
-    else if (icon === 'comidas') return <ActividadComidas color={color} selected={selected} />
-    else if (icon === 'ejercicio') return <ActividadEjercicio color={color} selected={selected} />
-    else if (icon === 'estudio') return <ActividadEstudio color={color} selected={selected} />
-    else if (icon === 'juegos') return <ActividadJuegos color={color} selected={selected} />
-    else if (icon === 'lectura') return <ActividadLectura color={color} selected={selected} />
-    else if (icon === 'restaurante') return <ActividadRestaurante color={color} selected={selected} />
-    else if (icon === 'trabajo') return <ActividadTrabajo color={color} selected={selected} />
-    else if (icon === 'tv') return <ActividadTv color={color} selected={selected} />
+    if (icon === 'cine') return <ActividadCine color={color} selected={selected} size={size} />
+    else if (icon === 'compras') return <ActividadCompras color={color} selected={selected} size={size} />
+    else if (icon === 'ejercicio') return <ActividadEjercicio color={color} selected={selected} size={size} />
+    else if (icon === 'estudio') return <ActividadEstudio color={color} selected={selected} size={size} />
+    else if (icon === 'juegos') return <ActividadJuegos color={color} selected={selected} size={size} />
+    else if (icon === 'lectura') return <ActividadLectura color={color} selected={selected} size={size} />
+    else if (icon === 'restaurante') return <ActividadRestaurante color={color} selected={selected} size={size} />
+    else if (icon === 'trabajo') return <ActividadTrabajo color={color} selected={selected} size={size} />
+    else if (icon === 'tv') return <ActividadTv color={color} selected={selected} size={size} />
     else return undefined
   } else {
     return undefined

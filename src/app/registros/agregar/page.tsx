@@ -78,7 +78,7 @@ export default function AgregarRegistro() {
             />
             <FaceOptions
               title="¿Que actividad hiciste hoy?"
-              options={[ 'tv', 'juegos', 'cine', 'restaurante', 'trabajo', 'lectura', 'ejercicio', 'estudio' ]}
+              options={[ 'tv', 'juegos', 'cine', 'compras', 'restaurante', 'trabajo', 'lectura', 'ejercicio', 'estudio' ]}
               sx={{ display: activeStep === 2 ? 'block' : 'none' }}
               type="actividad"
               handleChange={(value: string | undefined) => setInputActividad(value)}
@@ -92,6 +92,7 @@ export default function AgregarRegistro() {
               handleInput={(value: string) => setInputNota(value)}
               label="Añade una nota adicional"
               sx={{ mb: 5, px: 0 }}
+              defaultValue=""
             />
             <Camera
               handleChange={(fileList: FileList | null) => setInputFile(fileList)}

@@ -13,8 +13,9 @@ interface IProps {
 
 export default function FaceOptions({ title, options, type, sx, handleChange }: IProps) {
   const theme = useTheme();
+  const [selected, setSelected] = React.useState<TIcon>();
   return (
-    <FormControl sx={Object.assign({ textAlign: 'center', py: 4, px: 0, width: '100%' }, sx)} variant="standard">
+    <FormControl sx={Object.assign({ textAlign: 'center', py: 4, px: 2, width: '100%' }, sx)} variant="standard">
       <Typography variant="h6" component="h2" sx={{ lineHeight: 'normal', mb: 2 }}>{title}</Typography>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}>
         {options.map((option) => {
@@ -24,10 +25,13 @@ export default function FaceOptions({ title, options, type, sx, handleChange }: 
             <Button
               key={`${type}-${lowerCase}`}
               variant="text"
-              sx={{ textTransform: 'uppercase', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}
-              onClick={() => handleChange(lowerCase)}
+              sx={{ textTransform: 'uppercase', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: "33.33333333%" }}
+              onClick={() => {
+                setSelected(option)
+                handleChange(lowerCase)
+              }}
             >
-              <Icons color={theme.palette.primary.main} selected={false} folder={type} icon={option} />
+              <Icons color={theme.palette.primary.main} selected={selected === option} folder={type} icon={option} />
               <Typography sx={{ lineHeight: 'normal', mb: 2 }}>{capitalize}</Typography>
             </Button>
           )

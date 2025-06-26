@@ -47,28 +47,32 @@ export default function Card({ img, date, active, mood, dream, activities, note,
           </IconButton>
         </Box>
         <Box sx={{ display: active ? 'block' : 'none' }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', width: '100%', px: 2, pt: 2, flexWrap: 'nowrap' }}>
-            <Box sx={{ width: '33.33%' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', width: '100%', px: 2, pt: 2, flexWrap: 'nowrap', overflow: 'hidden' }}>
+            <Box>
               <Typography variant="caption">Animo</Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', flexShrink: 0 }}>
-                <Icons color={theme.palette.primary.main} selected={false} folder="animo" icon={mood} />
-                <Typography variant='body2' sx={{ lineHeight: 'normal', textTransform: 'uppercase' }}>{mood}</Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', bgcolor: 'grey.300', p: 1, borderRadius: '5px', width: 98 }}>
+                  <Icons color={theme.palette.primary.main} selected={false} folder="animo" icon={mood} size={40} />
+                  <Typography variant='caption' sx={{ lineHeight: 'normal', textTransform: 'uppercase' }}>{mood}</Typography>
+                </Box>
               </Box>
             </Box>
-            <Box sx={{ width: '33.33%' }}>
+            <Box>
               <Typography variant="caption">Sueño</Typography>
-              <Box width="100%" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                <Icons color={theme.palette.primary.main} selected={false} folder="dormir" icon={dream} />
-                <Typography variant='body2' sx={{ lineHeight: 'normal', textTransform: 'uppercase' }}>{dream}</Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', bgcolor: 'grey.300', p: 1, borderRadius: '5px', width: 98 }}>
+                  <Icons color={theme.palette.primary.main} selected={false} folder="dormir" icon={dream} size={40} />
+                  <Typography variant='caption' sx={{ lineHeight: 'normal', textTransform: 'uppercase' }}>{dream}</Typography>
+                </Box>
               </Box>
             </Box>
-            <Box sx={{ width: '33.33%' }}>
+            <Box>
               <Typography variant="caption">Actividades</Typography>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 {activities.map((item) => (
-                  <Box key={`actividad-${item}`} width="100%" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mr: 2 }}>
-                    <Icons color={theme.palette.primary.main} selected={false} folder="actividad" icon={item} />
-                    <Typography variant='body2' sx={{ lineHeight: 'normal', textTransform: 'uppercase' }}>{item}</Typography>
+                  <Box key={`actividad-${item}`} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mr: 2, bgcolor: 'grey.300', p: 1, borderRadius: '5px', width: 98 }}>
+                    <Icons color={theme.palette.primary.main} selected={false} folder="actividad" icon={item} size={40} />
+                    <Typography variant='caption' sx={{ lineHeight: 'normal', textTransform: 'uppercase' }}>{item}</Typography>
                   </Box>
                 ))}
               </Box>

@@ -5,12 +5,12 @@ interface IProps {
   active: number,
   handleBack: () => void,
   handleNext: () => void
-  length: number,
+  lengthN: number,
   disabled?: boolean,
   sx?: object,
 }
 
-export default function NextPrev({ active, handleBack, handleNext, disabled, sx }: IProps) {
+export default function NextPrev({ active, handleBack, handleNext, lengthN, disabled, sx }: IProps) {
   return (
     <Box sx={Object.assign({ display: 'flex', width: '100%', justifyContent: 'space-between', }, sx)} >
       <Button
@@ -24,7 +24,7 @@ export default function NextPrev({ active, handleBack, handleNext, disabled, sx 
         sx={{ borderRadius: '50rem', textTransform: 'uppercase', minWidth: 160 }}
         onClick={handleNext}
         disabled={disabled}
-      >{active === length ? 'Comenzar' : 'Siguiente'}</Button>
+      >{active === lengthN ? 'Comenzar' : 'Siguiente'}</Button>
     </Box>
   );
 }

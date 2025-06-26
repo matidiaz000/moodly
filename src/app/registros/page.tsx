@@ -22,7 +22,7 @@ const registros = [
     img: '/happy.jpg',
     mood: 'mal',
     dream: 'bien',
-    activities: ['trabajo', 'ejercicio'],
+    activities: ['trabajo', 'ejercicio', 'restaurante'],
     note: 'Esta es una nota de ejemplo para el primer item de registro de estados de animo.',
     date: new Date()
   },
