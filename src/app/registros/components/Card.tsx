@@ -19,6 +19,7 @@ interface IProps {
 }
 
 export default function Card({ img, date, active, mood, dream, activities, note, sx, handleActive }: IProps) {
+  console.log(date)
   const theme = useTheme();
   return (
     <Box sx={Object.assign({ width: '100%', px: 2 }, sx)}>

@@ -18,9 +18,14 @@ import DormirBien from '@/components/Icons/dormir/bien';
 import DormirMal from '@/components/Icons/dormir/mal';
 import DormirRegular from '@/components/Icons/dormir/regular';
 
-type IconsActividad = 'cine' | 'compras' | 'ejercicio' | 'estudio' | 'juegos' | 'lectura' | 'restaurante' | 'trabajo' | 'tv';
-type IconsAnimo = 'bien' | 'horrible' | 'increible' | 'mal' | 'neutral';
-type IconsDormir = 'bien' | 'mal' | 'regular';
+export const actividad = [ 'cine', 'compras', 'ejercicio', 'estudio', 'juegos', 'lectura', 'restaurante', 'trabajo', 'tv' ]
+export const animo = [ 'bien', 'horrible', 'increible', 'mal', 'neutral' ]
+export const dormir = [ 'bien', 'mal', 'regular' ]
+export const folder = [ 'animo', 'actividad', 'dormir' ]
+
+export type IconsActividad = 'cine' | 'compras' | 'ejercicio' | 'estudio' | 'juegos' | 'lectura' | 'restaurante' | 'trabajo' | 'tv';
+export type IconsAnimo = 'bien' | 'horrible' | 'increible' | 'mal' | 'neutral';
+export type IconsDormir = 'bien' | 'mal' | 'regular';
 
 export type TIcon = IconsActividad | IconsAnimo | IconsDormir;
 export type TFolder = 'animo' | 'actividad' | 'dormir';
@@ -60,4 +65,20 @@ export default function Icons({ color, selected, folder, icon, size }: IProps): 
   } else {
     return undefined
   }
+}
+
+export function validateActividad(item: string[]): boolean {
+  return item.every((element) => actividad.includes(element));
+}
+
+export function validateAnimo(item: string): boolean {
+  return animo.includes(item)
+}
+
+export function validateDormir(item: string): boolean {
+  return dormir.includes(item)
+}
+
+export function validateFolder(item: string): boolean {
+  return folder.includes(item)
 }

@@ -105,7 +105,7 @@ export default function AgregarRegistro() {
           active={activeStep}
           handleBack={handleBack} 
           handleNext={handleNext}
-          length={3}
+          lengthN={3}
           disabled={isDisabled()}
           sx={{ mb: 4, px: 2 }}
         />

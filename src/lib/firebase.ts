@@ -1,21 +1,22 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
+// TODO: Replace the following with your app's Firebase project configuration
+// See: https://firebase.google.com/docs/web/learn-more#config-object
 const firebaseConfig = {
-  apiKey: "AIzaSyAArQvfYw_ZQA6_BNZUkZEdvTHh81ad8oU",
-  authDomain: "moodly-fd6af.firebaseapp.com",
-  projectId: "moodly-fd6af",
-  storageBucket: "moodly-fd6af.firebasestorage.app",
-  messagingSenderId: "159062471198",
-  appId: "1:159062471198:web:e00ba829e639b4e963b40f"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: `moodly-${process.env.FIREBASE_ID}.firebaseapp.com`,
+  projectId: `moodly-${process.env.FIREBASE_ID}`,
+  storageBucket: `moodly-${process.env.FIREBASE_ID}.firebasestorage.app`,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
+// Initialize Firebase Authentication and get a reference to the service
+export const clientAuth = getAuth(app);
 // Initialize Cloud Firestore and get a reference to the service
-export const db = getFirestore(app);
+export const clientDB = getFirestore(app);
