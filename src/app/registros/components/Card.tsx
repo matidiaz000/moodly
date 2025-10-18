@@ -5,8 +5,11 @@ import { Button, IconButton, Paper, useTheme } from '@mui/material';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
 import Icons, { TIcon } from '@/components/Icons';
+import { useRouter } from 'next/navigation';
+import Cookies from "js-cookie";
 
 interface IProps {
+  id: string,
   img: string,
   date: Date,
   active: boolean,
@@ -18,9 +21,30 @@ interface IProps {
   handleActive: () => void;
 }
 
-export default function Card({ img, date, active, mood, dream, activities, note, sx, handleActive }: IProps) {
-  console.log(date)
+export default function Card({ id, img, date, active, mood, dream, activities, note, sx, handleActive }: IProps) {
   const theme = useTheme();
+  const router = useRouter()
+
+  const edit = async () => {
+    router.push(`/registros/${id}`)
+  } 
+
+  const remove = async () => {
+    try {
+      const token = Cookies.get('token')
+      if (!token) router.push('/cuenta/ingreso')
+      const res = await fetch(`/api/records/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.code === 200) router.refresh()
+      else throw `Error in fetch call`
+    } catch (err) {
+      console.error(err);
+    }
+  } 
+
   return (
     <Box sx={Object.assign({ width: '100%', px: 2 }, sx)}>
       <Paper sx={{ width: '100%' }}>
@@ -87,10 +111,12 @@ export default function Card({ img, date, active, mood, dream, activities, note,
             <Button
               variant="text"
               sx={{ borderRadius: '50rem', textTransform: 'uppercase' }}
+              onClick={() => remove()}
             >Eliminar</Button>
             <Button
               variant="contained"
               sx={{ borderRadius: '50rem', textTransform: 'uppercase' }}
+              onClick={() => edit()}
             >Editar</Button>
           </Box>
         </Box>

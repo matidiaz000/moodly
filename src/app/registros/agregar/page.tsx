@@ -2,20 +2,24 @@
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 import { Paper } from '@mui/material';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import FaceOptions from '@/components/FaceOptions';
 import Input from '@/components/Input/Input';
 import Camera from '@/components/Camera';
 import NextPrev from '@/components/NextPrev';
 import Header from './components/Header';
+import Cookies from "js-cookie";
 
 export default function AgregarRegistro() {
+  const router = useRouter()
   const [activeStep, setActiveStep] = useState<number>(0);
   const [inputAnimo, setInputAnimo] = useState<string>();
   const [inputDormir, setInputDormir] = useState<string>();
   const [inputActividad, setInputActividad] = useState<string>();
   const [inputNota, setInputNota] = useState<string>();
-  const [inputFile, setInputFile] = useState<FileList | null>();
+  const [inputCamera, setInputCamera] = useState<string | null>();
+  const [loading, setLoading] = useState<any>(false);
+  const [error, setError] = useState<any>(null);
   
   const handleNext = () => {
     if (activeStep === 3) {
@@ -29,13 +33,32 @@ export default function AgregarRegistro() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
   
-  const handleSubmit = () => {
-    console.log("Animo: ", inputAnimo)
-    console.log("Dormir: ", inputDormir)
-    console.log("Actividad: ", inputActividad)
-    console.log("Nota: ", inputNota)
-    console.log("File: ", inputFile)
-    redirect('/registros');
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      const token = Cookies.get('token')
+      if (!token) router.push('/cuenta/ingreso')
+      const newRecord = {
+        "img": inputCamera,
+        "mood": inputAnimo,
+        "sleep": inputDormir,
+        "activities": [inputActividad],
+        "note": inputNota,
+        "date": new Date()
+      }
+      const res = await fetch(`/api/records`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(newRecord),
+      });
+      const data = await res.json();
+      if (data.code === 200) router.push('/registros')
+      else throw `Error in fetch call`
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
   }
 
   const isDisabled = () => {
@@ -92,10 +115,9 @@ export default function AgregarRegistro() {
               handleInput={(value: string) => setInputNota(value)}
               label="Añade una nota adicional"
               sx={{ mb: 5, px: 0 }}
-              defaultValue=""
             />
             <Camera
-              handleChange={(fileList: FileList | null) => setInputFile(fileList)}
+              handleChange={(image: string | null) => setInputCamera(image)}
               label="Añade una imágen de tu día"
             />
           </Box>

@@ -8,7 +8,12 @@ export async function POST(request: NextRequest) {
 
   try {
     const userCredential = await signInWithEmailAndPassword(clientAuth, email, password)
-    return NextResponse.json(userCredential, { status: 200 });
+    if (userCredential.user.emailVerified) {
+      const idToken = await userCredential.user.getIdToken()
+      return NextResponse.json({ code: 200, data: { token: idToken, userCredential } }, { status: 200 });
+    } else {
+      throw `El usuario con uid ${userCredential.user.uid} no tiene el correo verificado.`
+    }
   } catch (e) {
     return NextResponse.json(e, { status: 500 });
   }

@@ -8,23 +8,37 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import NextLink from 'next/link'
 import Input from '@/components/Input/Input';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Submit from '@/components/Submit';
 
 export default function RegistroCuenta() {
+  const router = useRouter()
   const [name, setName] = React.useState<string>();
   const [email, setEmail] = React.useState<string>();
   const [repeatEmail, setRepeatEmail] = React.useState<string>();
   const [password, setPassword] = React.useState<string>();
   const [repeatPassword, setRepeatPassword] = React.useState<string>();
 
-  const handleSubmit = () => {
-    console.log("name: ", name)
-    console.log("email: ", email)
-    console.log("repeatEmail: ", repeatEmail)
-    console.log("password: ", password)
-    console.log("repeatPassword: ", repeatPassword)
-    redirect('/cuenta/ingreso');
+  const handleSubmit = async () => {
+    try {
+      if (email != repeatEmail) throw `Email repeat input is not the same as email value`
+      if (password != repeatPassword) throw `Password repeat input is not the same as password value`
+      const newUser = {
+        email: email,
+        fullName: name,
+        password: password
+      }
+      const res = await fetch('/api/account', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newUser),
+      });
+      const data = await res.json();
+      if (data.code === 200) router.push('/cuenta/ingreso');
+      else throw `Error in fetch call`
+    } catch (e) {
+      console.error(e)
+    }
   }
 
   return (
@@ -55,7 +69,6 @@ export default function RegistroCuenta() {
           name="name"
           label="Nombre y Apellido"
           sx={{ mb: 2 }}
-          defaultValue=""
           handleInput={(value: string | undefined) => setName(value)}
         />
         <Input
@@ -64,7 +77,6 @@ export default function RegistroCuenta() {
           name="email"
           label="Correo electrónico"
           sx={{ mb: 2 }}
-          defaultValue=""
           handleInput={(value: string | undefined) => setEmail(value)}
         />
         <Input
@@ -73,7 +85,6 @@ export default function RegistroCuenta() {
           name="repeatEmail"
           label="Repite tu correo electrónico"
           sx={{ mb: 2 }}
-          defaultValue=""
           handleInput={(value: string | undefined) => setRepeatEmail(value)}
         />
         <Input
@@ -82,7 +93,6 @@ export default function RegistroCuenta() {
           name="password"
           label="Contraseña"
           sx={{ mb: 2 }}
-          defaultValue=""
           handleInput={(value: string | undefined) => setPassword(value)}
         />
         <Input
@@ -90,7 +100,6 @@ export default function RegistroCuenta() {
           type="password"
           name="repeatPassword"
           label="Repite tu contraseña"
-          defaultValue=""
           handleInput={(value: string | undefined) => setRepeatPassword(value)}
         />
       </Box>

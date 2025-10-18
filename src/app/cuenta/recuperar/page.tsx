@@ -6,19 +6,25 @@ import { Link as MuiLink } from '@mui/material';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import NextLink from 'next/link'
 import Input from '@/components/Input/Input';
-import { redirect } from 'next/navigation';
 import Submit from '@/components/Submit';
 
 export default function RecuperarCuenta() {
   const [email, setEmail] = React.useState<string>();
   const [submit, setSubmit] = React.useState<boolean>(false); 
 
-  const handleSubmit = () => {
-    if (submit === true) {
-      redirect('/cuenta')
-    } else {
-      console.log("email: ", email)
-      setSubmit(true)
+  const handleSubmit = async () => {
+    try {
+      if (!email) throw `Email value is required in this form`
+      const res = await fetch('/api/account/restore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(email),
+      });
+      const data = await res.json();
+      if (data.code === 200) setSubmit(true)
+      else throw `Error in fetch call`
+    } catch (e) {
+      console.error(e)
     }
   }
 

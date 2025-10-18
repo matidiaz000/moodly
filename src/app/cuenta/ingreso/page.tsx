@@ -8,19 +8,39 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded';
 import NextLink from 'next/link'
 import Input from '@/components/Input/Input';
 import Image from 'next/image'
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation'
 import Submit from '@/components/Submit';
+import Cookies from "js-cookie";
 
 export default function IngresoCuenta() {
-  const [email, setEmail] = React.useState<string>();
-  const [password, setPassword] = React.useState<string>();
+  const router = useRouter()
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
 
-  const handleSubmit = () => {
-    console.log("email: ", email)
-    console.log("password: ", password)
-    redirect('/tutorial');
+  const handleSubmit = async () => {
+    try {
+      if (!email || !password) throw "Email and Password value is required.";
+      const user = {
+        email: email,
+        password: password
+      }
+      const res = await fetch('/api/account/signIn', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user),
+      });
+      const data = await res.json();
+      if (data.code === 200) {
+        let date = new Date()
+        date.setSeconds(date.getSeconds() + 3600);
+        Cookies.set("token", data.data.token, { expires: date });
+        if (Cookies.get('token')) router.push('/tutorial')
+        else throw "Problem with save token in cookies.";
+      } else throw "Error on sign in.";
+    } catch (e) {
+      console.error(e)
+    }
   }
-
   return (
     <Box
       sx={{
@@ -51,6 +71,7 @@ export default function IngresoCuenta() {
 
       <Box sx={{ mb: 'auto', width: '100%' }}>
         <Input
+          defaultValue={email}
           startAdorment={
             <EmailRoundedIcon sx={{ color: 'primary.main' }} />
           }
@@ -58,17 +79,18 @@ export default function IngresoCuenta() {
           name="email"
           label="Correo electrónico"
           sx={{ mb: 2 }}
-          handleInput={(value: string | undefined) => setEmail(value)}
+          handleInput={(value: string) => setEmail(value)}
         />
 
         <Input
+          defaultValue={password}
           startAdorment={
             <LockRoundedIcon sx={{ color: 'primary.main' }} />
           }
           type="password"
           name="password"
           label="Contraseña"
-          handleInput={(value: string | undefined) => setPassword(value)}
+          handleInput={(value: string) => setPassword(value)}
         />
 
         <Typography variant="caption" sx={{ width: '100%', display: 'block', textAlign: 'right', mt: 2 }}>

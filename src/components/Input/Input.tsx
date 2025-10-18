@@ -11,7 +11,7 @@ interface IProps {
   label: string,
   sx?: object,
   rows?: number,
-  defaultValue: string,
+  defaultValue?: string,
   handleInput: (event: string) => void;
 }
 
