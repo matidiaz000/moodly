@@ -56,6 +56,7 @@ export default function Input({ startAdorment, type, name, label, sx, rows, defa
         rows={rows}
         value={defaultValue}
         onInput={(e: React.ChangeEvent<HTMLInputElement>) => handleInput(e.target.value)}
+        test-id={name}
         slotProps={{
           input: {
             disableUnderline: true,
